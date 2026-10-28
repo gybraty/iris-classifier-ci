@@ -90,15 +90,13 @@ minikube image load iris-classifier:local
 
 ## Приложение А. Скриншоты
 
-| № | Файл | Что показывает |
-|---|---|---|
-| 1 | `docs/screenshots/01-repo.png` | Структура репозитория на GitHub |
-| 2 | `docs/screenshots/02-actions-run.png` | Зелёный запуск workflow |
-| 3 | `docs/screenshots/03-test-log.png` | `11 passed` в логе test |
-| 4 | `docs/screenshots/04-dockerhub.png` | Теги `:sha` и `:latest` |
-| 5 | `docs/screenshots/05-kubectl.png` | `kubectl get pods,svc -n iris` |
-| 6 | `docs/screenshots/06-api.png` | Ответ `curl /predict` |
-| 7 | `docs/screenshots/07-failed-run.png` | Красный запуск (опционально) |
+![Рисунок А.1. Репозиторий проекта на GitHub](../docs/screenshots/01-repo.png){width=70%}
 
-Снимать после первого push: GitHub → Actions → запуск → задания; Docker Hub →
-Tags; терминал для `kubectl` и `curl`.
+![Рисунок А.2. Успешный запуск CI/CD: задания test и build-and-push выполнены, deploy пропущен (запускается вручную)](../docs/screenshots/02-actions-run.png){width=70%}
+
+![Рисунок А.3. Файл workflow с этапами test, build, push и deploy](../docs/screenshots/08-workflow.png){width=70%}
+
+Дополнительно после настройки секретов и кластера снять: теги образа на Docker
+Hub (`04-dockerhub.png`), `kubectl get pods,svc -n iris` (`05-kubectl.png`), ответ
+`curl /predict` (`06-api.png`), красный запуск со сломанным тестом
+(`07-failed-run.png`).
