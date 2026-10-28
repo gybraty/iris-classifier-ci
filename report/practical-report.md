@@ -65,6 +65,8 @@ Python 3.12 с кешем pip и выполняет `python -m pytest -v`.
 
 `k8s/deployment.yaml` — две реплики с пробами readiness и liveness на `/health` и
 лимиты ресурсов. `k8s/service.yaml` публикует сервис на NodePort 30080.
+Развёртывание проверено в Minikube: 2/2 пода `Running`, `/predict` через Service
+вернул `versicolor` с уверенностью 0.98.
 
 ```bash
 minikube start && kubectl apply -f k8s/
