@@ -40,7 +40,8 @@ docker run --rm -p 8000:8000 iris-classifier:local
 ```
 
 Проверено: `/health` вернул 200, `/predict` — `setosa` с уверенностью 1.0,
-`/model/info` — точность 0.9; размер образа 123 МБ.
+`/model/info` — точность 0.9; размер образа 123 МБ. Образ опубликован:
+https://hub.docker.com/r/gybraty/iris-classifier.
 
 ## 4. CI-конвейер в GitHub Actions
 
