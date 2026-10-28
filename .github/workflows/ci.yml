@@ -1,0 +1,104 @@
+name: CI/CD
+
+on:
+  push:
+    branches: ["**"]
+    tags: ["v*"]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+env:
+  IMAGE_NAME: ${{ secrets.DOCKERHUB_USERNAME || 'local' }}/iris-classifier
+
+jobs:
+  test:
+    name: Unit tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: Install dependencies
+        run: pip install -r requirements-dev.txt
+
+      - name: Run pytest
+        run: python -m pytest -v
+
+  build-and-push:
+    name: Build and push image
+    needs: test
+    if: github.event_name != 'pull_request'
+    runs-on: ubuntu-latest
+    env:
+      DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
+      DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: docker/setup-buildx-action@v3
+
+      - name: Log in to Docker Hub
+        if: env.DOCKERHUB_USERNAME != '' && env.DOCKERHUB_TOKEN != ''
+        uses: docker/login-action@v3
+        with:
+          username: ${{ env.DOCKERHUB_USERNAME }}
+          password: ${{ env.DOCKERHUB_TOKEN }}
+
+      - name: Build image
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          push: false
+          load: true
+          tags: |
+            ${{ env.IMAGE_NAME }}:${{ github.sha }}
+            ${{ env.IMAGE_NAME }}:latest
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+
+      - name: Smoke-test the image
+        run: |
+          docker run -d --name iris -p 8000:8000 "$IMAGE_NAME:${{ github.sha }}"
+          for i in $(seq 1 30); do
+            if curl -fsS http://localhost:8000/health; then
+              echo "container healthy"
+              exit 0
+            fi
+            sleep 2
+          done
+          docker logs iris
+          exit 1
+
+      - name: Push image
+        if: env.DOCKERHUB_USERNAME != '' && env.DOCKERHUB_TOKEN != '' && (github.ref == 'refs/heads/main' || startsWith(github.ref, 'refs/tags/v'))
+        run: |
+          docker tag "$IMAGE_NAME:${{ github.sha }}" "$IMAGE_NAME:${{ github.sha }}"
+          docker push "$IMAGE_NAME:${{ github.sha }}"
+          docker push "$IMAGE_NAME:latest"
+
+  deploy:
+    name: Deploy to Minikube
+    needs: build-and-push
+    if: github.event_name == 'workflow_dispatch' && vars.ENABLE_CD == 'true'
+    runs-on: [self-hosted, linux, minikube]
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Apply manifests
+        run: kubectl apply -f k8s/
+
+      - name: Roll out new image
+        run: |
+          kubectl -n iris set image deployment/iris-classifier \
+            iris-classifier="$IMAGE_NAME:${{ github.sha }}"
+          kubectl -n iris rollout status deployment/iris-classifier --timeout=180s
+
+      - name: Verify deployment
+        run: |
+          kubectl -n iris get pods -o wide
+          kubectl -n iris get svc iris-classifier

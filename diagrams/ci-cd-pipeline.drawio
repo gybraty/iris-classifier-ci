@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mxfile host="drawio" version="26.0.0">
+  <diagram name="CI-CD-Pipeline" id="pipeline">
+    <mxGraphModel dx="980" dy="420" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="980" pageHeight="420" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+
+        <mxCell id="2" value="Коммит&#xa;в GitHub" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=16;" vertex="1" parent="1">
+          <mxGeometry x="20" y="70" width="165" height="90" as="geometry" />
+        </mxCell>
+
+        <mxCell id="3" value="GitHub Actions&#xa;тесты (pytest)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=16;" vertex="1" parent="1">
+          <mxGeometry x="210" y="70" width="165" height="90" as="geometry" />
+        </mxCell>
+
+        <mxCell id="4" value="Сборка&#xa;Docker-образа" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=16;" vertex="1" parent="1">
+          <mxGeometry x="400" y="70" width="165" height="90" as="geometry" />
+        </mxCell>
+
+        <mxCell id="5" value="Публикация&#xa;Docker Hub" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=16;" vertex="1" parent="1">
+          <mxGeometry x="590" y="70" width="165" height="90" as="geometry" />
+        </mxCell>
+
+        <mxCell id="6" value="Развёртывание&#xa;в Minikube" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=16;" vertex="1" parent="1">
+          <mxGeometry x="780" y="70" width="165" height="90" as="geometry" />
+        </mxCell>
+
+        <mxCell id="7" value="При ошибке тестов&#xa;конвейер остановлен" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=14;" vertex="1" parent="1">
+          <mxGeometry x="210" y="280" width="165" height="80" as="geometry" />
+        </mxCell>
+
+        <mxCell id="8" value="Легенда" style="rounded=0;whiteSpace=wrap;html=1;fillColor=none;strokeColor=#666666;verticalAlign=top;fontStyle=1;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="20" y="220" width="165" height="126" as="geometry" />
+        </mxCell>
+        <mxCell id="9" value="" style="rounded=0;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="8">
+          <mxGeometry x="8" y="30" width="24" height="14" as="geometry" />
+        </mxCell>
+        <mxCell id="10" value="Источник изменения" style="text;html=1;align=left;verticalAlign=middle;fontSize=11;" vertex="1" parent="8">
+          <mxGeometry x="40" y="26" width="120" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="11" value="" style="rounded=0;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;" vertex="1" parent="8">
+          <mxGeometry x="8" y="54" width="24" height="14" as="geometry" />
+        </mxCell>
+        <mxCell id="12" value="CI-система" style="text;html=1;align=left;verticalAlign=middle;fontSize=11;" vertex="1" parent="8">
+          <mxGeometry x="40" y="50" width="120" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="13" value="" style="rounded=0;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;" vertex="1" parent="8">
+          <mxGeometry x="8" y="78" width="24" height="14" as="geometry" />
+        </mxCell>
+        <mxCell id="14" value="Стадия конвейера" style="text;html=1;align=left;verticalAlign=middle;fontSize=11;" vertex="1" parent="8">
+          <mxGeometry x="40" y="74" width="120" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="15" value="" style="rounded=0;html=1;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="8">
+          <mxGeometry x="8" y="102" width="24" height="14" as="geometry" />
+        </mxCell>
+        <mxCell id="16" value="Сбой" style="text;html=1;align=left;verticalAlign=middle;fontSize=11;" vertex="1" parent="8">
+          <mxGeometry x="40" y="98" width="120" height="20" as="geometry" />
+        </mxCell>
+
+        <mxCell id="20" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;endArrow=block;endSize=8;" edge="1" parent="1" source="2" target="3">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="21" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;endArrow=block;endSize=8;" edge="1" parent="1" source="3" target="4">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="22" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;endArrow=block;endSize=8;" edge="1" parent="1" source="4" target="5">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="23" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;endArrow=block;endSize=8;" edge="1" parent="1" source="5" target="6">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="24" value="нет" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;endArrow=block;endSize=8;fontSize=12;" edge="1" parent="1" source="3" target="7">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
