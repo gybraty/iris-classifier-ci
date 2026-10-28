@@ -32,6 +32,8 @@ docker build -t iris-classifier:local .
 docker run --rm -p 8000:8000 iris-classifier:local
 ```
 
+Опубликованный образ: `docker pull gybraty/iris-classifier:latest`.
+
 ## CI/CD (GitHub Actions)
 
 `.github/workflows/ci.yml` содержит три задания:

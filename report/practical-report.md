@@ -96,7 +96,8 @@ minikube image load iris-classifier:local
 
 ![Рисунок А.3. Файл workflow с этапами test, build, push и deploy](../docs/screenshots/08-workflow.png){width=70%}
 
-Дополнительно после настройки секретов и кластера снять: теги образа на Docker
-Hub (`04-dockerhub.png`), `kubectl get pods,svc -n iris` (`05-kubectl.png`), ответ
-`curl /predict` (`06-api.png`), красный запуск со сломанным тестом
-(`07-failed-run.png`).
+![Рисунок А.4. Образ опубликован в Docker Hub: теги по хешу коммита и latest](../docs/screenshots/04-dockerhub.png){width=70%}
+
+Дополнительно после подъёма кластера снять: `kubectl get pods,svc -n iris`
+(`05-kubectl.png`), ответ `curl /predict` (`06-api.png`), красный запуск со
+сломанным тестом (`07-failed-run.png`).
